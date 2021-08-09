@@ -8,7 +8,7 @@ function Item(props: {
 }) {
 	return (
 		<div
-			className={`${props.isActive ? 'text-blue-500' : 'text-gray-500'} flex-1`}
+			className={`${props.isActive ? 'text-theme' : 'text-gray-500'} flex-1`}
 			onClick={() => {
 				props.setTabIndex(props.index);
 			}}
