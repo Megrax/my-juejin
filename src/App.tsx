@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
-import Tab from './components/Tab';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Post from "./pages/post";
 
 function App() {
-	const [tabIndex, setTabIndex] = useState<number>(0);
-
 	return (
-		<div className="flex flex-col h-screen">
-			<div className="flex-grow w-screen">{tabIndex}</div>
-			<Tab tabIndex={tabIndex} setTabIndex={setTabIndex}></Tab>
-		</div>
+		<Router>
+			<Switch>
+				<Route exact path="/">
+					<Home />
+				</Route>
+				<Route path="/hot">
+					<Home type="hot" />
+				</Route>
+				<Route path="/newest">
+					<Home type="newest" />
+				</Route>
+				<Route path="/history">
+					<Home type="history" />
+				</Route>
+				<Route path="/post">
+					<Post />
+				</Route>
+			</Switch>
+		</Router>
 	);
 }
 

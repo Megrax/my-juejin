@@ -1,22 +1,29 @@
-import React from 'react';
-import Item from './components/Item';
+import React from "react";
+import { useRouteMatch } from "react-router-dom";
+import Item from "./components/Item";
 
-function Tab(props: {
-	tabIndex: number;
-	setTabIndex: React.Dispatch<React.SetStateAction<number>>;
-}) {
-	const tabs: string[] = ['热门', '最新', '历史'];
+interface tab {
+	route: string;
+	title: string;
+}
+
+function Tab() {
+	const { path } = useRouteMatch();
+	const tabs: tab[] = [
+		{ route: "hot", title: "热门" },
+		{ route: "newest", title: "最新" },
+		{ route: "history", title: "历史" },
+	];
 
 	return (
 		<section className="flex flex-row items-center flex-none w-screen h-16 shadow-2xl">
-			{tabs.map((t, i) => {
+			{tabs.map((t) => {
 				return (
 					<Item
-						isActive={t === tabs[props.tabIndex]}
-						title={t}
-						index={i}
-						setTabIndex={props.setTabIndex}
-						key={t}
+						route={t.route}
+						isActive={`/${t.route}` === path}
+						title={t.title}
+						key={t.title}
 					></Item>
 				);
 			})}
