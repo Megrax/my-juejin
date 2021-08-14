@@ -18,7 +18,7 @@ function Nav() {
 	];
 
 	return (
-		<nav className="flex flex-row items-center flex-none w-screen h-12 border-b-2 overflow-x-scroll no-scrollbar">
+		<nav className="flex flex-row items-center flex-none w-screen h-12 overflow-x-scroll no-scrollbar bg-white">
 			{navs.map((n) => {
 				return (
 					<Item

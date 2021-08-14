@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouteMatch } from "react-router-dom";
-import Tab from "../components/Tab";
+import Nav from "../components/Nav/Index";
+import SubNav from "../components/SubNav/Index";
+import Tab from "../components/Tab/Index";
 
 function Home(props: { type?: string }) {
 	const { type } = props;
@@ -8,7 +10,10 @@ function Home(props: { type?: string }) {
 
 	return (
 		<main className="flex flex-col h-screen">
-			<div className="flex-grow w-screen">{url}</div>
+			<div className="flex-grow w-screen bg-bgGrey">
+				<Nav></Nav>
+				<SubNav></SubNav>
+			</div>
 			<Tab></Tab>
 		</main>
 	);

@@ -16,7 +16,7 @@ function Tab() {
 	];
 
 	return (
-		<section className="flex flex-row items-center flex-none w-screen h-16 shadow-2xl">
+		<section className="flex flex-row items-center flex-none w-screen h-14 shadow-2xl">
 			{tabs.map((t) => {
 				return (
 					<Item
