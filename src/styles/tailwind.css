@@ -15,3 +15,11 @@
 		}
 	}
 }
+
+.active-sub-nav {
+	@apply bg-theme text-white;
+}
+
+.inactive-sub-nav {
+	@apply bg-white text-subNavGrey;
+}
