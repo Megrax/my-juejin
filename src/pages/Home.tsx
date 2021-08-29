@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouteMatch, useLocation } from "react-router-dom";
 import Nav from "../components/Nav/Index";
 import SubNav from "../components/SubNav/Index";
+import PostList from "../components/PostList";
 import Tab from "../components/Tab/Index";
 // @ts-ignore
 import { getCategories } from "../../fake-api";
@@ -35,9 +36,10 @@ function Home(props: { type?: string }) {
 
 	return (
 		<main className="flex flex-col h-screen">
-			<div className="flex-grow w-screen bg-bgGrey">
-				<Nav categories={categories}></Nav>
+			<Nav categories={categories}></Nav>
+			<div className="flex-grow w-screen bg-bgGrey overflow-y-auto">
 				{nav}
+				<PostList></PostList>
 			</div>
 			<Tab></Tab>
 		</main>
