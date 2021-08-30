@@ -7,7 +7,8 @@ module.exports = {
         'theme': '#3280F6',
         'bgGrey': '#F4F5F5',
         'subNavGrey': '#909090',
-        'navGrey': '#72777B'
+        'navGrey': '#72777B',
+        'followGreen': '#6cbd45'
       }
     },
   },
