@@ -1,17 +1,25 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import moment from "../../../utils/moment";
 import ThumbUp from "../../../icons/ThumbUp";
 import Comment from "../../../icons/Comment";
 import Tag from "./Tag";
 
 function Post(props: {
+	article_id: string;
 	articleInfo: IArticleInfo;
 	authorInfo: IAuthorUserInfo;
 	categoryInfo: ICategoryInfo;
 }) {
-	const { articleInfo, authorInfo, categoryInfo } = props;
+	const { article_id, articleInfo, authorInfo, categoryInfo } = props;
+	const history = useHistory();
+
+	const handlePostClick = () => {
+		history.push(`/post/${article_id}`);
+	};
+
 	return (
-		<div className="w-screen bg-white mt-4 p-4 pb-4">
+		<div className="w-screen bg-white mt-4 p-4 pb-4" onClick={handlePostClick}>
 			<h2 className="w-full text-lg font-bold mb-1">{articleInfo.title}</h2>
 			<div className="flex flex-row justify-start w-full text-gray-400">
 				<span>{authorInfo.user_name}</span>

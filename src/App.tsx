@@ -19,7 +19,7 @@ function App() {
 				<Route path="/history">
 					<Home type="history" />
 				</Route>
-				<Route path="/post">
+				<Route path="/post/:id">
 					<Post />
 				</Route>
 			</Switch>

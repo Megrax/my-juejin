@@ -19,6 +19,7 @@ function PostList() {
 			{articles.map((a) => {
 				return (
 					<Post
+						article_id={a.article_id}
 						articleInfo={a.article_info}
 						authorInfo={a.author_user_info}
 						categoryInfo={a.category_info}
