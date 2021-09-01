@@ -13,10 +13,7 @@ function Nav(props: { categories: ICategory[] }) {
 					<Item
 						route={c.category_route}
 						title={c.category_name}
-						isActive={
-							location.pathname ===
-							`/${location.pathname.split("/")[1]}/${c.category_route}`
-						}
+						isActive={location.pathname.split("/")[2] === c.category_route}
 						key={c.category_id}
 					></Item>
 				);
