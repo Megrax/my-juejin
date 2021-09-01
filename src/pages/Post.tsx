@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 // @ts-ignore
 import { getArticleById } from "../../fake-api";
+import { computeJobTitle } from "../utils";
 import ArrowLeft from "../icons/ArrowLeft";
 import DotsHorizontal from "../icons/DotsHorizontal";
 import Plus from "../icons/Plus";
+import CommentList from "../components/CommentList";
 
 function Post() {
 	const { id } = useParams<{ id: string }>();
@@ -15,30 +17,11 @@ function Post() {
 		(async () => {
 			const res = await getArticleById(id);
 			setArticle(res.data.article);
-			console.log(res.data);
 		})();
 	}, []);
 
 	const handleRouteBack = (): void => {
 		history.goBack();
-	};
-
-	const computeJobTitle = (): string => {
-		let hasTitle: boolean = article?.author_user_info?.job_title ? true : false;
-		let hasCompany: boolean = article?.author_user_info?.company ? true : false;
-
-		switch (`${hasTitle} ${hasCompany}`) {
-			case "true true":
-				return `${article?.author_user_info?.job_title} @ ${article?.author_user_info?.company}`;
-			case "true false":
-				return `${article?.author_user_info?.job_title}`;
-			case "false true":
-				return `${article?.author_user_info?.company}`;
-			case "false false":
-				return " ";
-			default:
-				return " ";
-		}
 	};
 
 	return (
@@ -64,7 +47,7 @@ function Post() {
 						<div className="flex flex-col ml-2">
 							<p>{article?.author_user_info.user_name}</p>
 							<p className="w-48 truncate text-sm text-navGrey">
-								{computeJobTitle()}
+								{computeJobTitle(article?.author_user_info).title}
 							</p>
 						</div>
 					</div>
@@ -77,7 +60,7 @@ function Post() {
 					className="pl-6 pr-6"
 				></section>
 			</main>
-			<footer className="w-full pb-6">
+			<footer className="w-full pb-6 text-sm">
 				<div className="flex flex-row justify-start items-center w-full h-10 text-gray-400">
 					<div className="flex flex-row justify-center items-center h-8 ml-4 pl-2 pr-2 rounded-md bg-gray-200">
 						{article?.category_info.first_category_name}
@@ -88,6 +71,7 @@ function Post() {
 				</div>
 				<div className="mt-5 pl-4 text-gray-400">{`赞 ${article?.article_info.digg_count} · 阅读 ${article?.article_info.view_count}`}</div>
 			</footer>
+			<CommentList articleId={id}></CommentList>
 		</div>
 	);
 }

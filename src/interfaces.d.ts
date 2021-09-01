@@ -100,3 +100,50 @@ interface IArticle {
 	author_user_info: IAuthorUserInfo;
 	category_info: ICategoryInfo;
 }
+
+interface IComment {
+	comment_id: string;
+	comment_info: ICommentInfo;
+	reply_infos: IReplyInfo[];
+	user_info: IAuthorUserInfo;
+}
+
+interface ICommentInfo {
+	bury_count: number;
+	comment_content: string;
+	comment_id: string;
+	comment_pics: Array<any>;
+	comment_replys: ICommentReply[];
+	comment_status: number;
+	ctime: number;
+	digg_count: number;
+	is_bury: boolean;
+	is_digg: boolean;
+	item_id: string;
+	item_type: number;
+	level: number;
+	reply_count: number;
+	user_id: string;
+}
+
+interface ICommentReply {
+	burry_count: number;
+	ctime: number;
+	digg_count: number;
+	item_id: string;
+	item_type: number;
+	reply_comment_id: string;
+	reply_content: string;
+	reply_id: string;
+	reply_pics: Array<any>;
+	reply_status: number;
+	reply_to_reply_id: string;
+	reply_to_user_id: string;
+	user_id: string;
+}
+
+interface IReplyInfo {
+	reply_id: BigInt;
+	reply_info: ICommentReply;
+	user_info: IAuthorUserInfo;
+}

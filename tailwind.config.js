@@ -9,6 +9,10 @@ module.exports = {
         'subNavGrey': '#909090',
         'navGrey': '#72777B',
         'followGreen': '#6cbd45'
+      },
+      maxWidth: {
+        '28': '7rem',
+        '32': '8rem',
       }
     },
   },
