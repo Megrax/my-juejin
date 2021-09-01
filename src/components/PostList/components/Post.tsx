@@ -40,11 +40,11 @@ function Post(props: {
 			</div>
 			<div className="flex flex-row items-center mt-3 text-gray-400">
 				<div className="flex flex-row">
-					<ThumbUp></ThumbUp>
+					<ThumbUp size={5}></ThumbUp>
 					<span className="ml-1">{articleInfo?.digg_count}</span>
 				</div>
 				<div className="flex flex-row items-center ml-12 text-gray-400">
-					<Comment></Comment>
+					<Comment size={5}></Comment>
 					<span className="ml-1">{articleInfo?.comment_count}</span>
 				</div>
 				<div className="flex-grow"></div>
