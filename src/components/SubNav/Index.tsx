@@ -13,6 +13,7 @@ function SubNav(props: { subCategories: ISubCategory[] }) {
 			{subCategories.map((sc) => {
 				return (
 					<Item
+						key={sc.category_id}
 						route={sc.category_route}
 						title={sc.category_name}
 						isActive={
