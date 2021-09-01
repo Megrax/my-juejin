@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch, useLocation } from "react-router-dom";
+import {
+	useRouteMatch,
+	useLocation,
+	Switch,
+	Route,
+	Redirect,
+} from "react-router-dom";
 import Nav from "../components/Nav/Index";
 import SubNav from "../components/SubNav/Index";
 import PostList from "../components/PostList";
@@ -9,7 +15,7 @@ import { getCategories } from "../../fake-api";
 
 function Home(props: { type?: string }) {
 	const { type } = props;
-	const { url } = useRouteMatch();
+	const { path, url } = useRouteMatch();
 	const location = useLocation();
 	const [categories, setCategories] = useState<ICategory[]>([]);
 	const currNav = location.pathname.split("/");
@@ -27,6 +33,7 @@ function Home(props: { type?: string }) {
 		}
 	}
 
+	// get categories
 	useEffect(() => {
 		(async () => {
 			const res = await getCategories();
@@ -39,7 +46,48 @@ function Home(props: { type?: string }) {
 			<Nav categories={categories}></Nav>
 			<div className="flex-grow w-screen bg-bgGrey overflow-y-auto">
 				{nav}
-				<PostList></PostList>
+				<Switch>
+					<Route exact path={`/${type}`}>
+						<Redirect to={`/${type}/recommended`} />
+					</Route>
+					{categories.map((category) => {
+						return (
+							<Route
+								exact
+								path={`${path}/${category.category_route}`}
+								key={category.category_id}
+							>
+								<PostList
+									type={type}
+									categoryRoute={category.category_route}
+									isSubCategory={false}
+									categories={categories}
+								></PostList>
+							</Route>
+						);
+					})}
+					{categories.map(
+						(category) =>
+							category?.children &&
+							category?.children.map((child) => {
+								return (
+									<Route
+										key={`${category.category_id}${child.category_id}`}
+										exact
+										path={`${path}/${category.category_route}/${child.category_route}`}
+									>
+										<PostList
+											type={type}
+											categoryRoute={child.category_route}
+											isSubCategory
+											optionalRoute={category.category_route}
+											categories={categories}
+										></PostList>
+									</Route>
+								);
+							})
+					)}
+				</Switch>
 			</div>
 			<Tab></Tab>
 		</main>
