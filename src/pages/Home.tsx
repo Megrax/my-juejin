@@ -6,10 +6,10 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom";
-import Nav from "../components/Nav/Index";
-import SubNav from "../components/SubNav/Index";
+import Nav from "../components/Nav";
+import SubNav from "../components/SubNav";
 import PostList from "../components/PostList";
-import Tab from "../components/Tab/Index";
+import Tab from "../components/Tab";
 
 // @ts-ignore
 import { getCategories } from "../../fake-api";

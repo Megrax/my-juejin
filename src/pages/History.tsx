@@ -1,6 +1,6 @@
 import React from "react";
 import HistoryList from "../components/PostList/HistoryList";
-import Tab from "../components/Tab/Index";
+import Tab from "../components/Tab";
 import DotsHorizontal from "../icons/DotsHorizontal";
 
 export default function History(props: {
