@@ -73,7 +73,7 @@ export default function Comment(props: { comment: IComment }) {
 										{computeJobTitle(reply.user_info).title}
 									</div>
 								) : null}
-								<div className="pl-3 text-gray-400">
+								<div className="pl-3 text-gray-400 truncate">
 									{moment(moment.unix(+reply.reply_info.ctime)).fromNow()}
 								</div>
 							</div>
