@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import moment from "../../../utils/moment";
 import ThumbUp from "../../../icons/ThumbUp";
 import Comment from "../../../icons/Comment";
+import Loading from "../../../icons/Loading";
 import Tag from "./Tag";
 
 function Post(props: {
@@ -13,6 +14,7 @@ function Post(props: {
 }) {
 	const { article_id, articleInfo, authorInfo, categoryInfo } = props;
 	const history = useHistory();
+	const [imgLoading, setImgLoading] = useState<boolean>(true);
 
 	const handlePostClick = () => {
 		history.push(`/post/${article_id}`);
@@ -27,16 +29,28 @@ function Post(props: {
 				<span>{moment(moment.unix(+articleInfo?.mtime)).fromNow()}</span>
 			</div>
 			<div className="flex flex-row w-full">
-				<p className="w-64 h-14 tow-line-ellipsis pt-1 pr-1">
+				<p
+					className={`${
+						articleInfo?.cover_image ? "w-64" : ""
+					} h-14 tow-line-ellipsis pt-1 pr-1`}
+				>
 					{articleInfo?.brief_content}
 				</p>
-				<div className="w-24 bg-gray-200">
-					<img
-						src={articleInfo?.cover_image}
-						alt={articleInfo?.title}
-						className="h-full"
-					/>
-				</div>
+				{articleInfo?.cover_image ? (
+					<div className="flex-grow-0 w-24 h-14 bg-gray-200 break-words overflow-hidden">
+						<img
+							src={articleInfo?.cover_image}
+							alt={articleInfo?.cover_image}
+							className={`${
+								imgLoading ? "hidden" : ""
+							} float-left w-24 h-14 object-cover`}
+							onLoad={() => {
+								setImgLoading(false);
+							}}
+						/>
+						<Loading isLoading={imgLoading}></Loading>
+					</div>
+				) : null}
 			</div>
 			<div className="flex flex-row items-center mt-3 text-gray-400">
 				<div className="flex flex-row">
