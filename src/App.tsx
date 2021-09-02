@@ -12,7 +12,7 @@ import History from "./pages/History";
 import NotFound from "./pages/404";
 
 function App() {
-	const [readPosts, setReadPosts] = useState<any>();
+	const [readPosts, setReadPosts] = useState<any>(new Set());
 
 	useEffect(() => {
 		let his = localStorage.getItem("history");
