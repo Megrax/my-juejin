@@ -28,22 +28,22 @@ function Post(props: {
 				<span className="ml-2 mr-2 text-gray-300">|</span>
 				<span>{moment(moment.unix(+articleInfo?.mtime)).fromNow()}</span>
 			</div>
-			<div className="flex flex-row w-full">
+			<div className="flex flex-row justify-between w-full">
 				<p
 					className={`${
-						articleInfo?.cover_image ? "w-64" : ""
-					} h-14 tow-line-ellipsis pt-1 pr-1`}
+						articleInfo?.cover_image ? "w-4/5" : ""
+					} h-14 tow-line-ellipsis pt-1 pr-1 `}
 				>
 					{articleInfo?.brief_content}
 				</p>
 				{articleInfo?.cover_image ? (
-					<div className="flex-grow-0 w-24 h-14 bg-gray-200 break-words overflow-hidden">
+					<div className="flex-grow-0 w-2/5 h-14 break-words ">
 						<img
 							src={articleInfo?.cover_image}
 							alt={articleInfo?.cover_image}
 							className={`${
 								imgLoading ? "hidden" : ""
-							} float-left w-24 h-14 object-cover`}
+							} float-left w-full h-14 object-cover`}
 							onLoad={() => {
 								setImgLoading(false);
 							}}
