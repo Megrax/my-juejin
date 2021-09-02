@@ -10,12 +10,13 @@ import Nav from "../components/Nav/Index";
 import SubNav from "../components/SubNav/Index";
 import PostList from "../components/PostList";
 import Tab from "../components/Tab/Index";
+
 // @ts-ignore
 import { getCategories } from "../../fake-api";
 
 function Home(props: { type?: string }) {
 	const { type } = props;
-	const { path, url } = useRouteMatch();
+	const { path } = useRouteMatch();
 	const location = useLocation();
 	const [categories, setCategories] = useState<ICategory[]>([]);
 	const currNav = location.pathname.split("/");
@@ -87,6 +88,9 @@ function Home(props: { type?: string }) {
 								);
 							})
 					)}
+					<Route path="*">
+						<Redirect to="/hot/recommended" />
+					</Route>
 				</Switch>
 			</div>
 			<Tab></Tab>
