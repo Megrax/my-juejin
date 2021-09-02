@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import _ from "lodash";
 // @ts-ignore
 import { getArticleById } from "../../fake-api";
 import { computeJobTitle } from "../utils";
@@ -7,16 +8,38 @@ import ArrowLeft from "../icons/ArrowLeft";
 import DotsHorizontal from "../icons/DotsHorizontal";
 import Plus from "../icons/Plus";
 import CommentList from "../components/CommentList";
+import Loading from "../icons/Loading";
 
-function Post() {
+interface IRes {
+	code: number;
+	data: {
+		article: IArticle;
+	};
+}
+
+function Post(props: { readPosts: any; setReadPosts: React.Dispatch<any> }) {
+	const { readPosts, setReadPosts } = props;
 	const { id } = useParams<{ id: string }>();
 	const history = useHistory();
 	const [article, setArticle] = useState<IArticle>();
+	const [imgLoading, setImgLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		(async () => {
-			const res = await getArticleById(id);
-			setArticle(res.data.article);
+			const res: IRes = await getArticleById(id);
+			if (res.code === 0) {
+				setArticle(res.data.article);
+				setReadPosts(
+					new Set(
+						_.uniqWith(
+							[...readPosts, res.data.article].filter((item) => item).reverse(),
+							_.isEqual
+						).reverse()
+					)
+				);
+			} else if (res.code === 404) {
+				history.push("/404");
+			}
 		})();
 	}, []);
 
@@ -55,6 +78,19 @@ function Post() {
 						<Plus></Plus>关注
 					</div>
 				</aside>
+				{article?.article_info.cover_image ? (
+					<div className="w-4/5 m-auto mt-2 mb-2">
+						<img
+							className={`${imgLoading ? "hidden" : ""}`}
+							src={article?.article_info.cover_image}
+							alt={article?.article_info.cover_image}
+							onLoad={() => {
+								setImgLoading(false);
+							}}
+						/>
+						<Loading isLoading={imgLoading}></Loading>
+					</div>
+				) : null}
 				<section
 					dangerouslySetInnerHTML={{ __html: article?.article_content || "" }}
 					className="pl-6 pr-6"
