@@ -43,14 +43,10 @@ function Post(props: { readPosts: any; setReadPosts: React.Dispatch<any> }) {
 		})();
 	}, []);
 
-	const handleRouteBack = (): void => {
-		history.goBack();
-	};
-
 	return (
 		<div className="w-screen relative">
 			<header className="fixed z-10 top-0 w-full flex flex-row justify-around items-center h-16 shadow-lg bg-white">
-				<div onClick={handleRouteBack}>
+				<div onClick={history.goBack}>
 					<ArrowLeft></ArrowLeft>
 				</div>
 				<h1 className="w-64 truncate font-bold">

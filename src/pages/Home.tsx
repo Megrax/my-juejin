@@ -88,9 +88,6 @@ function Home(props: { type?: string }) {
 								);
 							})
 					)}
-					<Route path="*">
-						<Redirect to="/hot/recommended" />
-					</Route>
 				</Switch>
 			</div>
 			<Tab></Tab>

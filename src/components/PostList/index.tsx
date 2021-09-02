@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import Post from "./components/Post";
 import { findCategoryIdByRoute, findSubCategoryIdByRoute } from "../../utils";
 // @ts-ignore
@@ -17,6 +18,7 @@ function PostList(props: {
 	const [articles, setArticles] = useState<IArticle[]>([]);
 	const [hasMore, setHasMore] = useState<boolean>(true);
 	const endRef = useRef<HTMLDivElement>(null);
+	const history = useHistory();
 	let screenCount: number = 0;
 	let offset: number = 0;
 	let category =
@@ -27,8 +29,13 @@ function PostList(props: {
 	useEffect(() => {
 		(async () => {
 			const res = await getArticles(category, type === "hot" ? type : "new");
-			setArticles(res.data.articles);
-			setHasMore(res.has_more);
+			console.log(res.code);
+			if (res.code === 0) {
+				setArticles(res.data.articles);
+				setHasMore(res.has_more);
+			} else {
+				history.push("/404");
+			}
 		})();
 	}, []);
 
